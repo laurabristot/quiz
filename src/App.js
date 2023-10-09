@@ -1,11 +1,19 @@
 import { useEffect, useReducer } from 'react'
-import { Error, Header, Loader, Main, Question, StartScreen } from './exports'
+import {
+  Error,
+  Header,
+  Loader,
+  Main,
+  Question,
+  StartScreen
+} from './components'
 import './index.css'
 
 const inicialState = {
   questions: [],
   // loading, error, ready, active, finished
-  status: 'loading'
+  status: 'loading',
+  index: 0
 }
 
 function reducer(state, action) {
@@ -22,7 +30,10 @@ function reducer(state, action) {
 }
 
 export default function App() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, inicialState)
+  const [{ questions, status, index }, dispatch] = useReducer(
+    reducer,
+    inicialState
+  )
   const numQuestions = questions.length
 
   useEffect(() => {
@@ -42,7 +53,7 @@ export default function App() {
         {status === 'ready' && (
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
-        {status === 'active' && <Question />}
+        {status === 'active' && <Question question={questions[index]} />}
       </Main>
     </div>
   )
