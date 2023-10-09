@@ -5,6 +5,7 @@ import {
   Loader,
   Main,
   NextButton,
+  Progress,
   Question,
   StartScreen
 } from './components'
@@ -45,11 +46,15 @@ function reducer(state, action) {
 }
 
 export default function App() {
-  const [{ questions, status, index, answer }, dispatch] = useReducer(
+  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
     reducer,
     inicialState
   )
   const numQuestions = questions.length
+  const maxPossiblePoints = questions.reduce(
+    (prev, cur) => prev + cur.points,
+    0
+  )
 
   useEffect(() => {
     fetch('https://tlv879-8000.csb.app/questions')
@@ -70,6 +75,13 @@ export default function App() {
         )}
         {status === 'active' && (
           <>
+            <Progress
+              numQuestions={numQuestions}
+              index={index}
+              points={points}
+              maxPossiblePoints={maxPossiblePoints}
+              answer={answer}
+            />
             <Question
               question={questions[index]}
               dispatch={dispatch}
