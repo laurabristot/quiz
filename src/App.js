@@ -1,6 +1,6 @@
-import "./index.css";
 import { useEffect, useReducer } from "react";
 import { Header, Main } from "./exports";
+import "./index.css";
 
 const inicialState = {
   questions: [],
@@ -21,12 +21,13 @@ function reducer(state, action) {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, inicialState);
+  console.log(state);
 
   useEffect(() => {
     fetch("https://tlv879-8000.csb.app/questions")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataReceived", payload: data }))
-      .catch((err) => console.error("Error"));
+      .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
 
   return (
