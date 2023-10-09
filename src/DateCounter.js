@@ -8,6 +8,7 @@ function reducer(state, action) {
 
 function DateCounter() {
   const [count, dispatch] = useReducer(reducer, 0);
+
   const [step, setStep] = useState(1);
 
   // This mutates the date object.
@@ -31,7 +32,6 @@ function DateCounter() {
   };
 
   const reset = function () {
-    // setCount(0);
     setStep(1);
   };
 
