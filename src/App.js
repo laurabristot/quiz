@@ -1,17 +1,6 @@
 import { useEffect, useReducer } from 'react'
-import {
-  Error,
-  FinishScreen,
-  Footer,
-  Header,
-  Loader,
-  Main,
-  NextButton,
-  Progress,
-  Question,
-  StartScreen,
-  Timer
-} from './components'
+import * as C from './components'
+
 import './index.css'
 
 const inicialState = {
@@ -96,48 +85,51 @@ export default function App() {
 
   return (
     <div className="app">
-      <Header />
+      <C.Header />
 
-      <Main>
+      <C.Main>
         {status === 'loading' && <Loader />}
         {status === 'error' && <Error />}
         {status === 'ready' && (
-          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+          <C.StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
         {status === 'active' && (
           <>
-            <Progress
+            <C.Progress
               numQuestions={numQuestions}
               index={index}
               points={points}
               maxPossiblePoints={maxPossiblePoints}
               answer={answer}
             />
-            <Question
+            <C.Question
               question={questions[index]}
               dispatch={dispatch}
               answer={answer}
             />
-            <Footer>
-              <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
-              <NextButton
+            <C.Footer>
+              <C.Timer
+                dispatch={dispatch}
+                secondsRemaining={secondsRemaining}
+              />
+              <C.NextButton
                 dispatch={dispatch}
                 answer={answer}
                 numQuestions={numQuestions}
                 index={index}
               />
-            </Footer>
+            </C.Footer>
           </>
         )}
         {status === 'finished' && (
-          <FinishScreen
+          <C.FinishScreen
             points={points}
             maxPossiblePoints={maxPossiblePoints}
             highscore={highscore}
             dispatch={dispatch}
           />
         )}
-      </Main>
+      </C.Main>
     </div>
   )
 }
