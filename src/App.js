@@ -88,8 +88,8 @@ export default function App() {
       <C.Header />
 
       <C.Main>
-        {status === 'loading' && <Loader />}
-        {status === 'error' && <Error />}
+        {status === 'loading' && <C.Loader />}
+        {status === 'error' && <C.Error />}
         {status === 'ready' && (
           <C.StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
